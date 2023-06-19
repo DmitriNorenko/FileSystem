@@ -12,10 +12,18 @@ namespace FileSystem
     {
         static void Main(string[] args)
         {
-            GetCatalogs();
+            SwapFolder();
             Console.ReadKey();
-            GetCatalogs();
-            Console.ReadKey();
+
+        }
+        static void SwapFolder()
+        {
+            DirectoryInfo dir = new DirectoryInfo("/Users/dima/Desktop/TestFolder");
+            string newDir = "/$Recycle.Bin/TestFolder";
+            if (dir.Exists && !Directory.Exists(newDir))
+            {
+                dir.MoveTo(newDir);
+            }
         }
         static void GetCatalogs()
         {
