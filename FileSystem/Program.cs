@@ -5,18 +5,26 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace FileSystem
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            FileSystem fileSystem = new FileSystem("C", 500000, 366000);
-            Folder folder = new Folder("aboba");
-            folder.AddFile("Bobik");
-            folder.AddFile("Tolik");
-            folder.ShowList();
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach(DriveInfo drive in drives) 
+            {
+                Console.WriteLine(drive.Name);
+                Console.WriteLine(drive.DriveType);
+                if (drive.IsReady)
+                {
+                    Console.WriteLine($"Объем: {drive.TotalSize}");
+                    Console.WriteLine($"Свободно: {drive.TotalFreeSpace}");
+                    Console.WriteLine($"Метка: {drive.VolumeLabel}");
+                }
+            }
         }
 
         class FileSystem
@@ -58,9 +66,9 @@ namespace FileSystem
 
             public void ShowList()
             {
-                foreach(string file in files) 
+                foreach (string file in files)
                 {
-                    Console.WriteLine(file+"\n");
+                    Console.WriteLine(file + "\n");
                 }
             }
         }
