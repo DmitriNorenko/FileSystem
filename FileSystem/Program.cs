@@ -26,7 +26,15 @@ namespace FileSystem
                 _volume = volume;
                 _freVolume = freVolume;
             }
+            Dictionary<string,Folder> newFolder = new Dictionary<string, Folder>();
+            public void CreateFolder(string nameFolder)
+            {
+                newFolder.Add(nameFolder,new Folder());
+            }
         }
-
+        public class Folder
+        {
+            List<string> files { get; set; }=new List<string>();
+        }
     }
 }
