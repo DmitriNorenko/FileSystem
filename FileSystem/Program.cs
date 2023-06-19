@@ -12,21 +12,33 @@ namespace FileSystem
     {
         static void Main(string[] args)
         {
-            DriveInfo[] drives = DriveInfo.GetDrives();
-
-            foreach(DriveInfo drive in drives) 
+            GetCatalogs();
+            Console.ReadKey();
+        }
+        static void GetCatalogs()
+        {
+            int numFiles = 0;
+            string dirName = "C://";
+            if (Directory.Exists(dirName))
             {
-                Console.WriteLine(drive.Name);
-                Console.WriteLine(drive.DriveType);
-                if (drive.IsReady)
+                Console.WriteLine("Папки:");
+                string[] dirs = Directory.GetDirectories(dirName);
+                foreach (string dir in dirs)
                 {
-                    Console.WriteLine($"Объем: {drive.TotalSize}");
-                    Console.WriteLine($"Свободно: {drive.TotalFreeSpace}");
-                    Console.WriteLine($"Метка: {drive.VolumeLabel}");
+                    Console.WriteLine(dir);
+                    numFiles++;
+                }
+                Console.WriteLine();
+                Console.WriteLine("Файлы:");
+                string[] files = Directory.GetFiles(dirName);
+                foreach (string file in files)
+                {
+                    Console.WriteLine(file);
+                    numFiles++;
                 }
             }
+            Console.WriteLine("Всего папок и файлов: {0}", numFiles);
         }
-
         class FileSystem
         {
             public string _name { get; }
