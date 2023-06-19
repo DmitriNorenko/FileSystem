@@ -14,6 +14,8 @@ namespace FileSystem
         {
             GetCatalogs();
             Console.ReadKey();
+            GetCatalogs();
+            Console.ReadKey();
         }
         static void GetCatalogs()
         {
@@ -38,6 +40,12 @@ namespace FileSystem
                 }
             }
             Console.WriteLine("Всего папок и файлов: {0}", numFiles);
+            DirectoryInfo dirInfo = new DirectoryInfo(dirName);
+            if (dirInfo.Exists)
+            {
+                dirInfo.Create();
+            }
+            dirInfo.CreateSubdirectory("8)");
         }
         class FileSystem
         {
