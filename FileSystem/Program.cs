@@ -46,6 +46,7 @@ namespace FileSystem
                 dirInfo.Create();
             }
             dirInfo.CreateSubdirectory("8)");
+            dirInfo.Delete(true);
         }
         class FileSystem
         {
