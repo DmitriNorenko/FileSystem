@@ -12,7 +12,16 @@ namespace FileSystem
     {
         static void Main(string[] args)
         {
-            SwapFolder();
+            string filePath = "C:/Users/dima/source/repos/FileSystem/FileSystem/Program.cs";
+         
+            using (StreamReader sr = File.OpenText(filePath))
+            {
+                string str = "";
+                while ((str = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(str);
+                }
+            }
             Console.ReadKey();
 
         }
@@ -25,6 +34,7 @@ namespace FileSystem
                 dir.MoveTo(newDir);
             }
         }
+
         static void GetCatalogs()
         {
             int numFiles = 0;
@@ -56,6 +66,7 @@ namespace FileSystem
             dirInfo.CreateSubdirectory("8)");
             dirInfo.Delete(true);
         }
+
         class FileSystem
         {
             public string _name { get; }
@@ -75,6 +86,7 @@ namespace FileSystem
                 newFolder.Add(nameFolder, new Folder(null));
             }
         }
+
         public class Folder
         {
             public string _name { get; set; }
@@ -101,5 +113,7 @@ namespace FileSystem
                 }
             }
         }
+
+
     }
 }
