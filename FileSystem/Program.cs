@@ -12,22 +12,21 @@ namespace FileSystem
     {
         static void Main(string[] args)
         {
-            var fileInfo = new FileInfo("C:/Users/dima/source/repos/FileSystem/FileSystem/Program.cs");
-
-            using (StreamWriter sw = fileInfo.AppendText()) 
+            string str = "/Users/dima/Desktop/BinaryFile.bin";
+            string value = "";
+            if (File.Exists(str)) 
             {
-                sw.WriteLine($"Время запуска программы: {DateTime.Now}");
-            }
-         
-            using (StreamReader sr = fileInfo.OpenText())
-            {
-                string str = "";
-                while ((str = sr.ReadLine()) != null)
+                using (BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open)))
                 {
-                    Console.WriteLine(str);
+                    value = reader.ReadString();
                 }
+
+                // Вывод
+                Console.WriteLine("Из файла считано:");
+                Console.WriteLine(value);
                
             }
+          
             Console.ReadKey();
 
         }
@@ -123,4 +122,3 @@ namespace FileSystem
 
     }
 }
-Время запуска программы: 20.06.2023 9:04:05
