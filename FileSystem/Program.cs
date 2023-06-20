@@ -16,17 +16,20 @@ namespace FileSystem
             string value = "";
             if (File.Exists(str)) 
             {
-                using (BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open)))
+                using (BinaryWriter writer = new BinaryWriter(File.Open(str, FileMode.Create)))
+                {
+                   writer.Write("Файл изменен 02.11 14:53 на компьютере Windows 11");
+                }
+            }
+          if(File.Exists(str)) 
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open))) 
                 {
                     value = reader.ReadString();
                 }
-
-                // Вывод
                 Console.WriteLine("Из файла считано:");
                 Console.WriteLine(value);
-               
             }
-          
             Console.ReadKey();
 
         }
