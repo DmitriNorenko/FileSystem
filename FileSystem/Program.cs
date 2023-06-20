@@ -6,32 +6,44 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.Runtime.InteropServices.ComTypes;
+
 namespace FileSystem
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string str = "/Users/dima/Desktop/BinaryFile.bin";
-            string value = "";
-            if (File.Exists(str)) 
+            var Person = new Contact("Иван",89884132486,"Ivan1708@Gmail.com");
+
+            BinaryFormatter f = new BinaryFormatter();
+            using (var fs = new FileStream("Person.dat", FileMode.OpenOrCreate))
             {
-                using (BinaryWriter writer = new BinaryWriter(File.Open(str, FileMode.Create)))
-                {
-                   writer.Write("Файл изменен 02.11 14:53 на компьютере Windows 11");
-                }
+                f.Serialize(fs, Person);
             }
-          if(File.Exists(str)) 
+            using (var fr = new FileStream("Person.dat", FileMode.OpenOrCreate))
             {
-                using (BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open))) 
-                {
-                    value = reader.ReadString();
-                }
-                Console.WriteLine("Из файла считано:");
-                Console.WriteLine(value);
+                var rf = (Contact)f.Deserialize(fr);
+                Console.WriteLine($" Имя: {rf.Name} \n Телефон: {rf.PhoneNumber} \n Почта: {rf.Email}");
             }
             Console.ReadKey();
 
+        }
+        [Serializable]
+        class Contact
+        {
+            public string Name { get; set; }
+            public long PhoneNumber { get; set; }
+            public string Email { get; set; }
+
+            public Contact(string name, long phoneNumber, string email)
+            {
+                Name = name;
+                PhoneNumber = phoneNumber;
+                Email = email;
+            }
         }
         static void SwapFolder()
         {
