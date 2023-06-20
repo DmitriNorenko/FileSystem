@@ -12,15 +12,21 @@ namespace FileSystem
     {
         static void Main(string[] args)
         {
-            string filePath = "C:/Users/dima/source/repos/FileSystem/FileSystem/Program.cs";
+            var fileInfo = new FileInfo("C:/Users/dima/source/repos/FileSystem/FileSystem/Program.cs");
+
+            using (StreamWriter sw = fileInfo.AppendText()) 
+            {
+                sw.WriteLine($"Время запуска программы: {DateTime.Now}");
+            }
          
-            using (StreamReader sr = File.OpenText(filePath))
+            using (StreamReader sr = fileInfo.OpenText())
             {
                 string str = "";
                 while ((str = sr.ReadLine()) != null)
                 {
                     Console.WriteLine(str);
                 }
+               
             }
             Console.ReadKey();
 
@@ -117,3 +123,4 @@ namespace FileSystem
 
     }
 }
+Время запуска программы: 20.06.2023 9:04:05
